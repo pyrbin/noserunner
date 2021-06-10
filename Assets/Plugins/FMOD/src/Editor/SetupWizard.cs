@@ -34,7 +34,7 @@ namespace FMODUnity
             "End"
         };
 
-        List<bool> pageComplete = new List<bool>(new bool[(int) PAGES.Max]);
+        List<bool> pageComplete = new List<bool>(new bool[(int)PAGES.Max]);
 
         PAGES currentPage = PAGES.Welcome;
 
@@ -55,8 +55,8 @@ namespace FMODUnity
         Color crumbDefault;
         Color crumbHighlight;
 
-        const string logoBlack = "FMOD/FMODLogoBlack.png";
-        const string logoWhite = "FMOD/FMODLogoWhite.png";
+        const string logoBlack = "Assets/Plugins/FMOD/src/Editor/Icons/FMODLogoBlack.png";
+        const string logoWhite = "Assets/Plugins/FMOD/src/Editor/Icons/FMODLogoWhite.png";
 
         Texture2D logoTexture;
         Texture2D tickTexture;
@@ -100,8 +100,8 @@ namespace FMODUnity
         {
             logoTexture = EditorGUIUtility.Load(EditorGUIUtility.isProSkin ? logoWhite : logoBlack) as Texture2D;
 
-            crossTexture = EditorGUIUtility.Load("FMOD/CrossYellow.png") as Texture2D;
-            tickTexture = EditorGUIUtility.Load("FMOD/TickGreen.png") as Texture2D;
+            crossTexture = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/CrossYellow.png") as Texture2D;
+            tickTexture = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/TickGreen.png") as Texture2D;
 
             titleStyle = new GUIStyle();
             titleStyle.normal.textColor = EditorGUIUtility.isProSkin ? Color.white : Color.black;
@@ -191,14 +191,14 @@ namespace FMODUnity
         {
             switch (currentPage)
             {
-                case PAGES.Welcome:                         break;
-                case PAGES.Linking:     CheckStudioLinked();break;
-                case PAGES.Listener:    CheckListeners();   break;
-                case PAGES.UnityAudio:                      break;
-                case PAGES.UnitySources:CheckSources();     break;
-                case PAGES.End:                             break;
-                case PAGES.Max:                             break;
-                default:                                    break;
+                case PAGES.Welcome: break;
+                case PAGES.Linking: CheckStudioLinked(); break;
+                case PAGES.Listener: CheckListeners(); break;
+                case PAGES.UnityAudio: break;
+                case PAGES.UnitySources: CheckSources(); break;
+                case PAGES.End: break;
+                case PAGES.Max: break;
+                default: break;
             }
         }
 
@@ -302,9 +302,9 @@ namespace FMODUnity
             var descStyle = new GUIStyle(titleStyle);
             descStyle.fontStyle = FontStyle.Normal;
             descStyle.alignment = TextAnchor.MiddleLeft;
-            descStyle.margin = new RectOffset(5,0,0,0);
+            descStyle.margin = new RectOffset(5, 0, 0, 0);
 
-            EditorGUILayout.Space(); 
+            EditorGUILayout.Space();
             using (new GUILayout.HorizontalScope())
             {
                 using (new GUILayout.VerticalScope("box"))
@@ -562,7 +562,7 @@ namespace FMODUnity
                         EditorGUILayout.Space();
                     }
                 }
-                        EditorGUILayout.Space();
+                EditorGUILayout.Space();
                 using (new EditorGUILayout.VerticalScope())
                 {
                     for (int i = 1; i < pageComplete.Count - 1; i++)
@@ -699,7 +699,7 @@ namespace FMODUnity
 
         protected override TreeViewItem BuildRoot()
         {
-            var root = new TreeViewItem (-1, -1);
+            var root = new TreeViewItem(-1, -1);
 
             CreateItems(root, Resources.FindObjectsOfTypeAll<AudioSource>());
             showAlternatingRowBackgrounds = true;
@@ -740,16 +740,16 @@ namespace FMODUnity
                 switch (PrefabUtility.GetPrefabAssetType(go))
                 {
                     case PrefabAssetType.NotAPrefab:
-                    icon = (Texture2D)EditorGUIUtility.IconContent(goIcon).image;
+                        icon = (Texture2D)EditorGUIUtility.IconContent(goIcon).image;
                         break;
                     case PrefabAssetType.Regular:
-                    icon = (Texture2D)EditorGUIUtility.IconContent(prefabIcon).image;
+                        icon = (Texture2D)EditorGUIUtility.IconContent(prefabIcon).image;
                         break;
                     case PrefabAssetType.Model:
-                    icon = (Texture2D)EditorGUIUtility.IconContent(prefabModelIcon).image;
+                        icon = (Texture2D)EditorGUIUtility.IconContent(prefabModelIcon).image;
                         break;
                     case PrefabAssetType.Variant:
-                    icon = (Texture2D)EditorGUIUtility.IconContent(prefabVariantIcon).image;
+                        icon = (Texture2D)EditorGUIUtility.IconContent(prefabVariantIcon).image;
                         break;
                 }
 #else
@@ -777,7 +777,7 @@ namespace FMODUnity
             const string sceneIcon = "SceneAsset Icon";
             const string folderIcon = "Folder Icon";
 
-            public SceneItem(Scene scene) : base (scene.GetHashCode())
+            public SceneItem(Scene scene) : base(scene.GetHashCode())
             {
                 m_scene = scene;
                 if (m_scene.IsValid())
@@ -795,7 +795,7 @@ namespace FMODUnity
 
         private void CreateItems(TreeViewItem root, AudioSource[] audioSources)
         {
-            for(int i = 0; i < audioSources.Length; i++)
+            for (int i = 0; i < audioSources.Length; i++)
             {
                 AudioSource audioSource = audioSources[i];
 

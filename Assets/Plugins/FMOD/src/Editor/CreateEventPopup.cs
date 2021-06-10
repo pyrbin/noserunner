@@ -7,7 +7,7 @@ using UnityEditor;
 namespace FMODUnity
 {
     class CreateEventPopup : EditorWindow
-    {        
+    {
         class FolderEntry
         {
             public FolderEntry parent;
@@ -51,7 +51,7 @@ namespace FMODUnity
             EditorUtils.GetScriptOutput("studio.project.workspace.masterBankFolder.items.forEach(func, this); ");
             string bankList = EditorUtils.GetScriptOutput("children;");
             string[] bankListSplit = bankList.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach(var bank in bankListSplit)
+            foreach (var bank in bankListSplit)
             {
                 var entry = new BankEntry();
                 entry.guid = bank.Substring(0, 38);
@@ -71,7 +71,7 @@ namespace FMODUnity
             string itemCountString = EditorUtils.GetScriptOutput("cur.items.length;");
             int itemCount;
             Int32.TryParse(itemCountString, out itemCount);
-            
+
             // iterate children looking for folder
             for (int item = 0; item < itemCount; item++)
             {
@@ -95,7 +95,7 @@ namespace FMODUnity
             }
 
             // Recurse for child entries
-            foreach(var childEntry in entry.entries)
+            foreach (var childEntry in entry.entries)
             {
                 BuildTreeItem(childEntry);
             }
@@ -113,7 +113,7 @@ namespace FMODUnity
 
         public void OnGUI()
         {
-            var borderIcon = EditorGUIUtility.Load("FMOD/Border.png") as Texture2D;
+            var borderIcon = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/Border.png") as Texture2D;
             var border = new GUIStyle(GUI.skin.box);
             border.normal.background = borderIcon;
             GUI.Box(new Rect(1, 1, position.width - 1, position.height - 1), GUIContent.none, border);
@@ -137,8 +137,8 @@ namespace FMODUnity
                 currentFolder = rootFolder;
             }
 
-            var arrowIcon = EditorGUIUtility.Load("FMOD/ArrowIcon.png") as Texture;
-            var hoverIcon = EditorGUIUtility.Load("FMOD/SelectedAlt.png") as Texture2D;
+            var arrowIcon = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/ArrowIcon.png") as Texture;
+            var hoverIcon = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/SelectedAlt.png") as Texture2D;
             var titleIcon = EditorGUIUtility.Load("IN BigTitle") as Texture2D;
 
             var nextEntry = currentFolder;
@@ -162,7 +162,7 @@ namespace FMODUnity
                 if (Event.current.keyCode == KeyCode.DownArrow)
                 {
                     if (Event.current.type == EventType.KeyDown)
-                    { 
+                    {
                         lastHover = Math.Min(lastHover + 1, filteredEntries.Count - 1);
                         if (filteredEntries[lastHover].rect.y + filteredEntries[lastHover].rect.height > scrollPos.y + scrollRect.height)
                         {
@@ -199,7 +199,7 @@ namespace FMODUnity
 
             {
                 GUI.SetNextControlName("name");
-                
+
                 EditorGUILayout.LabelField("Name");
                 eventName = EditorGUILayout.TextField(eventName);
             }
@@ -235,12 +235,12 @@ namespace FMODUnity
             // Draw the current folder as a title bar, click to go back one level
             {
                 Rect currentRect = EditorGUILayout.GetControlRect();
-                
+
                 var bg = new GUIStyle(GUI.skin.box);
                 bg.normal.background = titleIcon;
                 Rect bgRect = new Rect(currentRect);
                 bgRect.x = 2;
-                bgRect.width = position.width-4;
+                bgRect.width = position.width - 4;
                 GUI.Box(bgRect, GUIContent.none, bg);
 
                 Rect textureRect = currentRect;
@@ -269,7 +269,7 @@ namespace FMODUnity
             hover.normal.background = hoverIcon;
 
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
-            
+
             for (int i = 0; i < filteredEntries.Count; i++)
             {
                 var entry = filteredEntries[i];

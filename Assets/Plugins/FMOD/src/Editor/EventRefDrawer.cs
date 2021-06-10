@@ -6,15 +6,15 @@ using UnityEditor;
 using System.IO;
 
 namespace FMODUnity
-{    
+{
     [CustomPropertyDrawer(typeof(EventRefAttribute))]
     class EventRefDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            Texture browseIcon = EditorGUIUtility.Load("FMOD/SearchIconBlack.png") as Texture;
-            Texture openIcon = EditorGUIUtility.Load("FMOD/BrowserIcon.png") as Texture;
-            Texture addIcon = EditorGUIUtility.Load("FMOD/AddIcon.png") as Texture;
+            Texture browseIcon = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/SearchIconBlack.png") as Texture;
+            Texture openIcon = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/BrowserIcon.png") as Texture;
+            Texture addIcon = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/AddIcon.png") as Texture;
 
             label = EditorGUI.BeginProperty(position, label, property);
             SerializedProperty pathProperty = property;
@@ -56,12 +56,12 @@ namespace FMODUnity
             Rect searchRect = new Rect(openRect.x - browseIcon.width - 9, position.y, browseIcon.width + 8, baseHeight);
             Rect pathRect = new Rect(position.x, position.y, searchRect.x - position.x - 3, baseHeight);
 
-            EditorGUI.PropertyField(pathRect, pathProperty, GUIContent.none);                       
+            EditorGUI.PropertyField(pathRect, pathProperty, GUIContent.none);
 
             if (GUI.Button(searchRect, new GUIContent(browseIcon, "Search"), buttonStyle))
             {
                 var eventBrowser = ScriptableObject.CreateInstance<EventBrowser>();
-                
+
                 eventBrowser.ChooseEvent(property);
                 var windowRect = position;
                 windowRect.position = GUIUtility.GUIToScreenPoint(windowRect.position);
@@ -71,7 +71,7 @@ namespace FMODUnity
             }
             if (GUI.Button(addRect, new GUIContent(addIcon, "Create New Event in Studio"), buttonStyle))
             {
-                var addDropdown= EditorWindow.CreateInstance<CreateEventPopup>();
+                var addDropdown = EditorWindow.CreateInstance<CreateEventPopup>();
 
                 addDropdown.SelectEvent(property);
                 var windowRect = position;
@@ -81,7 +81,7 @@ namespace FMODUnity
 
             }
             if (GUI.Button(openRect, new GUIContent(openIcon, "Open In Browser"), buttonStyle) &&
-                !string.IsNullOrEmpty(pathProperty.stringValue) && 
+                !string.IsNullOrEmpty(pathProperty.stringValue) &&
                 EventManager.EventFromPath(pathProperty.stringValue) != null
                 )
             {
@@ -89,7 +89,7 @@ namespace FMODUnity
                 EventBrowser eventBrowser = EditorWindow.GetWindow<EventBrowser>();
                 eventBrowser.FrameEvent(pathProperty.stringValue);
             }
-            
+
             if (!string.IsNullOrEmpty(pathProperty.stringValue) && EventManager.EventFromPath(pathProperty.stringValue) != null)
             {
                 Rect foldoutRect = new Rect(position.x + 10, position.y + baseHeight, position.width, baseHeight);
@@ -140,7 +140,7 @@ namespace FMODUnity
             else
             {
                 Rect labelRect = new Rect(position.x, position.y + baseHeight, position.width, baseHeight);
-                GUI.Label(labelRect, new GUIContent("Event Not Found", EditorGUIUtility.Load("FMOD/NotFound.png") as Texture2D));
+                GUI.Label(labelRect, new GUIContent("Event Not Found", EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/NotFound.png") as Texture2D));
             }
 
             EditorGUI.EndProperty();

@@ -43,7 +43,7 @@ namespace FMODUnity
                 browser.ShowUtility();
             }
 
-            Texture deleteTexture = EditorGUIUtility.Load("FMOD/Delete.png") as Texture;
+            Texture deleteTexture = EditorGUIUtility.Load("Assets/Plugins/FMOD/src/Editor/Icons/Delete.png") as Texture;
             GUIContent deleteContent = new GUIContent(deleteTexture, "Delete Bank");
 
             var buttonStyle = new GUIStyle(GUI.skin.button);
