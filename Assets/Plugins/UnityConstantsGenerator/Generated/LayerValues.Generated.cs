@@ -31,6 +31,11 @@ namespace UnityConstantsGenerator
         /// </summary>
         UI = 5,
 
+        /// <summary>
+        /// Ground
+        /// </summary>
+        Ground = 6,
+
     }
 
     [System.Flags]
@@ -60,6 +65,11 @@ namespace UnityConstantsGenerator
         /// UI
         /// </summary>
         UI = 1 << 5,
+
+        /// <summary>
+        /// Ground
+        /// </summary>
+        Ground = 1 << 6,
 
     }
 
