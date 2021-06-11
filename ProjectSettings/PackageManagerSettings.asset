@@ -30,6 +30,9 @@ MonoBehaviour:
     m_Url: https://package.openupm.com
     m_Scopes:
     - com.truongnguyentungduy.hierarchy-2
+    - com.akbiggs.unitytimer
+    - com.xtaltools.unityconstantsgenerator
+    - com.dbrizov.naughtyattributes
     m_IsDefault: 0
     m_Capabilities: 0
   m_UserSelectedRegistryName: OpenUPM
@@ -42,6 +45,9 @@ MonoBehaviour:
       m_Url: https://package.openupm.com
       m_Scopes:
       - com.truongnguyentungduy.hierarchy-2
+      - com.akbiggs.unitytimer
+      - com.xtaltools.unityconstantsgenerator
+      - com.dbrizov.naughtyattributes
       m_IsDefault: 0
       m_Capabilities: 0
     m_Modified: 0
@@ -49,5 +55,8 @@ MonoBehaviour:
     m_Url: https://package.openupm.com
     m_Scopes:
     - com.truongnguyentungduy.hierarchy-2
+    - com.akbiggs.unitytimer
+    - com.xtaltools.unityconstantsgenerator
+    - com.dbrizov.naughtyattributes
     m_SelectedScopeIndex: 0
   m_LoadAssets: 0
