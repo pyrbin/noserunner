@@ -222,6 +222,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4085e6bc-f7bb-4da8-b6ff-2e2d502633b4
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6716931875163670116}
+        m_TargetAssemblyTypeName: PlayerCharacter, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8830c18d-bda6-4568-889f-e7adbf7cb389
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -254,8 +270,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 6716931875163670118}
   Speed: 2
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 64
   JumpHeight: 1
-  Gravity: 9.81
+  Gravity: -9.81
 --- !u!143 &6716931875163670118
 CharacterController:
   m_ObjectHideFlags: 0

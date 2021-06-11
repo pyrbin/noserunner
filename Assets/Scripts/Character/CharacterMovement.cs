@@ -19,12 +19,18 @@ public class CharacterMovement : MonoBehaviour
     private float3 verticalVelocity = float3.zero;
 
     [SerializeField]
+    LayerMask GroundMask;
+
+    [SerializeField]
     float JumpHeight = 1.0f;
 
     [SerializeField]
     float Gravity = -9.81f;
 
-    bool IsGrounded => Controller.isGrounded;
+    [Header("Debug Draw")]
+    bool DrawDebug = true;
+
+    bool IsGrounded { get; set; } = true;
     bool jump = false;
 
     Transform cameraTransform;
@@ -38,6 +44,7 @@ public class CharacterMovement : MonoBehaviour
     {
         Controller ??= GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -50,8 +57,16 @@ public class CharacterMovement : MonoBehaviour
 
     public void ApplyMovement()
     {
-        // clamp vertical velocity if grounded
-        if (IsGrounded && verticalVelocity.y < 0)
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -1f, 0f);
+
+        IsGrounded = Physics.CheckSphere(groundCheckOffset, 0.1f, GroundMask);
+
+        if (DrawDebug)
+        {
+            DebugDraw.Sphere(groundCheckOffset, 0.1f, Color.red);
+        }
+
+        if (IsGrounded)
         {
             verticalVelocity.y = 0f;
         }
@@ -73,11 +88,14 @@ public class CharacterMovement : MonoBehaviour
         // Changes the height position of the player..
         if (jump && IsGrounded)
         {
+            Debug.Log("JUMP");
             verticalVelocity.y += math.sqrt(JumpHeight * -3.0f * Gravity);
         }
 
         verticalVelocity.y += Gravity * Time.deltaTime;
+
         Controller.Move(verticalVelocity * Time.deltaTime);
+
         jump = false;
     }
 }
