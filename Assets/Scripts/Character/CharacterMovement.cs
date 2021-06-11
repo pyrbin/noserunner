@@ -57,7 +57,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void ApplyMovement()
     {
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -1f, 0f);
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
 
         IsGrounded = Physics.CheckSphere(groundCheckOffset, 0.1f, GroundMask);
 
