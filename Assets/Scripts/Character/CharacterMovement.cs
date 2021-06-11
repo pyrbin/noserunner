@@ -88,7 +88,6 @@ public class CharacterMovement : MonoBehaviour
         // Changes the height position of the player..
         if (jump && IsGrounded)
         {
-            Debug.Log("JUMP");
             verticalVelocity.y += math.sqrt(JumpHeight * -3.0f * Gravity);
         }
 
