@@ -7,6 +7,8 @@ public class PressurePlate : MonoBehaviour
     [SerializeField]
     public List<Interactable> interactableList = new List<Interactable>();
 
+    public float minSize = 0f;
+
     PhysicsEvents physicsEvents;
     // Start is called before the first frame update
     void Start()
@@ -24,15 +26,12 @@ public class PressurePlate : MonoBehaviour
     }
 
     void Trigger(Collider collider) {
-            Interactor user = collider.gameObject.GetComponent<Interactor>();
-            Debug.Log("Triggered!!");
-            Debug.Log(user);
-            Debug.Log(collider.name);
-            if (user) {
-                foreach(Interactable interactable in interactableList){
-                    interactable.Interact(user);
-                }
+        Slime slime = collider.GetComponentInParent<Slime>();
+        if (slime && slime.Size >= minSize) {
+            foreach(Interactable interactable in interactableList){
+                interactable.Interact(null);
             }
+        }
     }
 
 }
