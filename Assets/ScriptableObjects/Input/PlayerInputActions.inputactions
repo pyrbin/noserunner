@@ -38,9 +38,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Interact",
+                    "name": "Tab",
                     "type": "Button",
-                    "id": "9a06fd13-618d-4d45-91ac-643c0cd3c4f3",
+                    "id": "a2f101c9-8c30-44fd-b273-d2abc9d48856",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -280,12 +280,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ea4c4b7b-8833-4bcc-9ced-db5cef6d5c0e",
-                    "path": "<Keyboard>/e",
+                    "id": "64370a0f-be52-4946-a833-3dcfe514911b",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Interact",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Tab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
