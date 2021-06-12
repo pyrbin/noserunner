@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cinemachine;
 using Unity.Mathematics;
@@ -25,12 +26,14 @@ public class SlimePuppeteer : MonoBehaviour
 
     bool holdSplit = false;
 
-    float force = 0f;
+    public float force = 0f;
 
     [Header("Throw forces")]
     public float2 minMaxForce = new float2(3f, 10f);
     public float forceGainPerSeconds = 2f;
     public float horizontalForceDamp = 0.75f;
+
+    public event Action<Slime> SlimeChanged;
 
     public void Split(InputAction.CallbackContext context)
     {
@@ -51,6 +54,8 @@ public class SlimePuppeteer : MonoBehaviour
                 CurrentSlime.GetComponentInChildren<Collider>().enabled = true;
             });
             force = minMaxForce.x;
+
+            SlimeChanged?.Invoke(CurrentSlime);
         }
     }
 
@@ -80,6 +85,7 @@ public class SlimePuppeteer : MonoBehaviour
         }
 
         VirtualCamera.Follow = slime.transform;
+        SlimeChanged?.Invoke(slime);
     }
 
     public void OnMove(InputAction.CallbackContext context)
