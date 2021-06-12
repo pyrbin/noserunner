@@ -105,7 +105,7 @@ public class Slime : Interactable
 
     void Update()
     {
-
+        Movement.Speed = Speed;
     }
 
     public void OnDisable()

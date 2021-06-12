@@ -941,6 +941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 3740759320448257711, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
+      propertyPath: MovementSmoothing
+      value: 0.072
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
 --- !u!1001 &6757577979496547647

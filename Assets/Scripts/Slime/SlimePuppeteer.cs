@@ -54,8 +54,8 @@ public class SlimePuppeteer : MonoBehaviour
             {
                 CurrentSlime.GetComponentInChildren<Collider>().enabled = true;
             });
-            force = minMaxForce.x;
 
+            force = minMaxForce.x;
             SlimeChanged?.Invoke(CurrentSlime);
         }
     }
