@@ -4,21 +4,33 @@ using UnityEngine;
 
 public class MovableObject : Interactable
 {
+    public Vector3 target;
+    public float timeToReachTarget;
+
+    float t;
+    Vector3 startPosition;
+    private bool isMoving = false;
+
     protected override void OnInteract(Interactor user)
     {
-        Debug.Log("INTERACTED!!!!");
-        //throw new System.NotImplementedException();
+        isMoving = true;
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        startPosition = transform.position;
+        target = startPosition + target;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        if (isMoving)
+        {
+            t += Time.deltaTime / timeToReachTarget;
+            transform.position = Vector3.Lerp(startPosition, target, t);
+        }
     }
+
 }

@@ -16,6 +16,7 @@ public class PressurePlate : MonoBehaviour
         physicsEvents = GetComponent<PhysicsEvents>();
         physicsEvents.TriggerEnter += (collider) =>
         {
+
             Trigger(collider);
         };
     }
@@ -25,10 +26,13 @@ public class PressurePlate : MonoBehaviour
     {
     }
 
-    void Trigger(Collider collider) {
+    void Trigger(Collider collider)
+    {
         Slime slime = collider.GetComponentInParent<Slime>();
-        if (slime && slime.Size >= minSize) {
-            foreach(Interactable interactable in interactableList){
+        if (slime && slime.Size >= minSize)
+        {
+            foreach (Interactable interactable in interactableList)
+            {
                 interactable.Interact(null);
             }
         }
