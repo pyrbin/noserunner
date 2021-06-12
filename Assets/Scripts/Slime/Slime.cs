@@ -42,11 +42,11 @@ public class Slime : Interactable
 
     private float size = 1f;
 
-    public float Speed => Species.BaseSpeed * Species.Mods.Speed * Size;
+    public float Speed => Species.BaseSpeed * Species.Mods.Speed / Size;
 
     public float Radius => transform.localScale.x;
 
-    public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump * Size;
+    public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump / Size;
 
     private bool AboutToBeConsumed = false;
 
@@ -106,6 +106,11 @@ public class Slime : Interactable
     void Update()
     {
 
+    }
+
+    public void OnDisable()
+    {
+        ScaleTimer.Cancel();
     }
 
     public void EnableControls()

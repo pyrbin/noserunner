@@ -74,9 +74,10 @@ public class CharacterMovement : MonoBehaviour
 
     public void Throw(float3 dir, float force, float hdamp = 1f)
     {
-        // verticalVelocity.y += math.sqrt(force * -3.0f * Gravity);
         verticalVelocity = dir * force;
-        verticalVelocity.y *= hdamp;
+        verticalVelocity.x *= hdamp;
+        verticalVelocity.z *= hdamp;
+
     }
 
     private void ApplyMovement()
@@ -102,7 +103,7 @@ public class CharacterMovement : MonoBehaviour
     private void ApplyGravity()
     {
         const float checkRadius = 0.1f;
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f) + checkRadius/2, 0f);
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
 
         var isGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
 
@@ -121,7 +122,8 @@ public class CharacterMovement : MonoBehaviour
         if (IsGrounded)
         {
             verticalVelocity.y = 0f;
-            if (Freezed)
+
+            if (Freezed || (verticalVelocity.x > 0f || verticalVelocity.z > 0f))
             {
                 verticalVelocity.x = 0f;
                 verticalVelocity.z = 0f;
