@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityConstantsGenerator;
 using UnityEngine;
+using UnityTimer;
 
 public class Slime : Interactable
 {
@@ -14,12 +15,32 @@ public class Slime : Interactable
     [SerializeField]
     public SlimeSpecies Species;
 
+    public Timer ScaleTimer;
+
     public float Size
     {
-        get => transform.localScale.x / Species.Mods.Scale;
-        set => transform.localScale =
-            new float3(value * Species.Mods.Scale, value * Species.Mods.Scale, value * Species.Mods.Scale);
+        get
+        {
+            return size;
+        }
+        set
+        {
+            size = value;
+            var targetScale = new float3(size * Species.Mods.Scale, size * Species.Mods.Scale, size * Species.Mods.Scale);
+
+            if (ScaleTimer != null)
+            {
+                ScaleTimer.Cancel();
+            }
+
+            float transitionDuration = 1.5f;
+            ScaleTimer = Timer.Register(transitionDuration,
+               onUpdate: elapsed => transform.localScale = math.lerp(transform.localScale, targetScale, elapsed / transitionDuration),
+               onComplete: () => { });
+        }
     }
+
+    private float size = 1f;
 
     public float Speed => Species.BaseSpeed * Species.Mods.Speed * Size;
 
