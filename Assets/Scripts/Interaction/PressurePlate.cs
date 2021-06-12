@@ -5,7 +5,7 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     [SerializeField]
-    public List<Interactable> interactableList = new List<Interactable>();
+    public List<MovableObject> movablesList = new List<MovableObject>();
 
     public float minSize = 0f;
 
@@ -16,26 +16,29 @@ public class PressurePlate : MonoBehaviour
         physicsEvents = GetComponent<PhysicsEvents>();
         physicsEvents.TriggerEnter += (collider) =>
         {
+            Slime slime = collider.GetComponentInParent<Slime>();
+            if (slime && slime.Size >= minSize)
+            {
+                foreach (MovableObject movableObject in movablesList)
+                {
+                    movableObject.Move(null);
+                }
+            }
+        };
 
-            Trigger(collider);
+        physicsEvents.TriggerExit += (collider) =>
+        {
+            Slime slime = collider.GetComponentInParent<Slime>();
+            if (slime && slime.Size >= minSize)
+            {
+                foreach (MovableObject movableObject in movablesList)
+                {
+                    movableObject.StopMove();
+                }
+            }
         };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
-    void Trigger(Collider collider)
-    {
-        Slime slime = collider.GetComponentInParent<Slime>();
-        if (slime && slime.Size >= minSize)
-        {
-            foreach (Interactable interactable in interactableList)
-            {
-                interactable.Interact(null);
-            }
-        }
-    }
 
 }
