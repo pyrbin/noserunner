@@ -36,6 +36,11 @@ namespace UnityConstantsGenerator
         /// </summary>
         Ground = 6,
 
+        /// <summary>
+        /// Slimes
+        /// </summary>
+        Slimes = 7,
+
     }
 
     [System.Flags]
@@ -70,6 +75,11 @@ namespace UnityConstantsGenerator
         /// Ground
         /// </summary>
         Ground = 1 << 6,
+
+        /// <summary>
+        /// Slimes
+        /// </summary>
+        Slimes = 1 << 7,
 
     }
 
