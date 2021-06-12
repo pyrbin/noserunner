@@ -122,4 +122,9 @@ public class Slime : Interactable
     {
         Movement.Freeze();
     }
+
+    public override string InteractionDescription()
+    {
+        return "JOIN TOGETHER ;) with slime.";
+    }
 }

@@ -15,4 +15,6 @@ public abstract class Interactable : MonoBehaviour
 
     protected abstract void OnInteract(Interactor user);
 
+    public abstract string InteractionDescription();
+
 }
