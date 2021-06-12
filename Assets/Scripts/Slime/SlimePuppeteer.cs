@@ -1,49 +1,70 @@
 using System.Collections.Generic;
 using Cinemachine;
 using Unity.Mathematics;
+using UnityConstantsGenerator;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityTimer;
 
 public class SlimePuppeteer : MonoBehaviour
 {
-    public int Current = 0;
-
-    [SerializeField]
-    public List<Slime> Slimes = new List<Slime>();
-
-    public Slime CurrentSlime => Slimes?.Count > 0 ? Slimes?[Current] : null;
+    public Slime CurrentSlime;
 
     public CinemachineVirtualCamera VirtualCamera;
 
     private void Awake()
     {
         if (CurrentSlime)
-            SwitchSlime(Current);
+            SwitchSlime(CurrentSlime);
     }
 
-    public void AddSlimeToList(Slime slime)
+    public float3 LookDirection()
     {
-        Slimes.Add(slime);
+        return Camera.main.transform.TransformDirection(Vector3.forward).normalized;
     }
 
-    public void SwitchToNext()
+    bool holdSplit = false;
+
+    float force = 0f;
+
+    [Header("Throw forces")]
+    public float2 minMaxForce = new float2(3f, 10f);
+    public float forceGainPerSeconds = 2f;
+    public float horizontalForceDamp = 0.75f;
+
+    public void Split(InputAction.CallbackContext context)
     {
-        var nextIndex = (Current + 1) % (Slimes.Count);
-        SwitchSlime(nextIndex);
+        if (CurrentSlime == null) return;
+
+        var shoot = holdSplit && !context.action.triggered;
+
+        holdSplit = context.action.triggered;
+
+        if (shoot && CurrentSlime.Split(out var slime, LookDirection() * CurrentSlime.Radius))
+        {
+            slime.DisableControls();
+            CurrentSlime.GetComponentInChildren<Collider>().enabled = false;
+
+            slime.Movement.Throw(LookDirection(), force);
+            Timer.Register(.1f, () =>
+            {
+                CurrentSlime.GetComponentInChildren<Collider>().enabled = true;
+            });
+            force = minMaxForce.x;
+        }
+    }
+
+    private void Update()
+    {
+        if (holdSplit)
+        {
+            force += Time.deltaTime * forceGainPerSeconds;
+            force = math.clamp(force, minMaxForce.x, minMaxForce.y);
+        }
     }
 
     public void SwitchSlime(Slime slime)
     {
-        var index = Slimes.IndexOf(slime);
-        SwitchSlime(index);
-    }
-
-    public void SwitchSlime(int index)
-    {
-        if (index >= Slimes.Count) return;
-
-        var slime = Slimes[index];
-
         if (slime != CurrentSlime)
         {
             CurrentSlime?.DisableControls();
@@ -51,8 +72,7 @@ public class SlimePuppeteer : MonoBehaviour
         }
 
         var last = CurrentSlime;
-
-        Current = index;
+        CurrentSlime = slime;
 
         if (last && last != CurrentSlime)
         {
@@ -62,14 +82,15 @@ public class SlimePuppeteer : MonoBehaviour
         VirtualCamera.Follow = slime.transform;
     }
 
-
     public void OnMove(InputAction.CallbackContext context)
     {
-        CurrentSlime.MoveInput = (float2)context.ReadValue<Vector2>();
+        if (CurrentSlime)
+            CurrentSlime.MoveInput = (float2)context.ReadValue<Vector2>();
     }
 
-    public void OnJump()
+    public void OnJump(InputAction.CallbackContext context)
     {
+        if (!context.action.triggered) return;
         CurrentSlime.Jump();
     }
 }
