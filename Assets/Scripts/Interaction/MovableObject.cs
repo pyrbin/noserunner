@@ -11,6 +11,11 @@ public class MovableObject : Interactable
     Vector3 startPosition;
     private bool isMoving = false;
 
+    public override string InteractionDescription()
+    {
+        return "Move object";
+    }
+
     protected override void OnInteract(Interactor user)
     {
         isMoving = true;
