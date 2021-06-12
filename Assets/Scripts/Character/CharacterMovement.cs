@@ -12,8 +12,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     CharacterController Controller;
 
-    [SerializeField]
-    float Speed = 11f;
+    [HideInInspector]
+    public float Speed = 11f;
 
     public float2 MoveInput { get; set; }
     private float3 verticalVelocity = float3.zero;
@@ -22,7 +22,7 @@ public class CharacterMovement : MonoBehaviour
     LayerMask GroundMask;
 
     [SerializeField]
-    float JumpHeight = 1.0f;
+    public float JumpHeight = 1.0f;
 
     [SerializeField]
     float Gravity = -9.81f;
@@ -40,6 +40,11 @@ public class CharacterMovement : MonoBehaviour
         jump = true;
     }
 
+    public void Freeze()
+    {
+        MoveInput = float2.zero;
+    }
+
     public void Awake()
     {
         Controller ??= GetComponent<CharacterController>();
@@ -55,27 +60,26 @@ public class CharacterMovement : MonoBehaviour
         ApplyJump();
     }
 
-    public void ApplyMovement()
+    private void ApplyMovement()
     {
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -1f, 0f);
+        const float checkRadius = 0.1f;
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
 
-        IsGrounded = Physics.CheckSphere(groundCheckOffset, 0.1f, GroundMask);
+        IsGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
 
-        if (DrawDebug)
-        {
-            DebugDraw.Sphere(groundCheckOffset, 0.1f, Color.red);
-        }
-
-        if (IsGrounded)
-        {
-            verticalVelocity.y = 0f;
-        }
 
         var input = new float3(MoveInput.x, 0f, MoveInput.y);
         var move = cameraTransform.forward * input.z + cameraTransform.right * input.x;
         move.y = 0f;
 
-        Controller.Move(move * Time.deltaTime * Speed);
+        var moveForce = move * Time.deltaTime * Speed;
+        Controller.Move(moveForce);
+
+        if (DrawDebug)
+        {
+            DebugDraw.Sphere(groundCheckOffset, checkRadius, IsGrounded ? Color.green : Color.red);
+            DebugDraw.Line(transform.position, transform.position + moveForce, Color.cyan);
+        }
 
         if (move != Vector3.zero)
         {
@@ -83,8 +87,13 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    public void ApplyJump()
+    private void ApplyJump()
     {
+        if (IsGrounded)
+        {
+            verticalVelocity.y = 0f;
+        }
+
         // Changes the height position of the player..
         if (jump && IsGrounded)
         {
@@ -92,7 +101,6 @@ public class CharacterMovement : MonoBehaviour
         }
 
         verticalVelocity.y += Gravity * Time.deltaTime;
-
         Controller.Move(verticalVelocity * Time.deltaTime);
 
         jump = false;
