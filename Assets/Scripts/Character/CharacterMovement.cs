@@ -102,7 +102,7 @@ public class CharacterMovement : MonoBehaviour
     private void ApplyGravity()
     {
         const float checkRadius = 0.1f;
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f) + checkRadius/2, 0f);
 
         var isGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
 
