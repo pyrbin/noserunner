@@ -35,7 +35,17 @@ public class Slime : Interactable
 
             float transitionDuration = 1.5f;
             ScaleTimer = Timer.Register(transitionDuration,
-               onUpdate: elapsed => transform.localScale = math.lerp(transform.localScale, targetScale, elapsed / transitionDuration),
+               onUpdate: elapsed =>
+                {
+                    try
+                    {
+                        transform.localScale = math.lerp(transform.localScale, targetScale, elapsed / transitionDuration);
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
+                },
                onComplete: () => { });
         }
     }

@@ -147,12 +147,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 3740759320448257708}
   Speed: 11
+  MovementSmoothing: 0.05
   GroundMask:
     serializedVersion: 2
     m_Bits: 64
   JumpHeight: 1
   Gravity: -9.81
-  CheckGroundedOffset: 0.13
+  CheckGroundedOffset: 0.15
 --- !u!143 &3740759320448257708
 CharacterController:
   m_ObjectHideFlags: 0
