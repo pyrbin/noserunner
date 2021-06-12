@@ -2,40 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableObject : Interactable
+public class MovableObject : MonoBehaviour
+
 {
     public Vector3 target;
-    public float timeToReachTarget;
+    public float speed;
 
-    float t;
-    Vector3 startPosition;
+
+    Vector3 startPos;
+    Vector3 endPos;
+
     private bool isMoving = false;
-
-    public override string InteractionDescription()
-    {
-        return "Move object";
-    }
-
-    protected override void OnInteract(Interactor user)
-    {
-        isMoving = true;
-    }
 
 
     void Start()
     {
-        startPosition = transform.position;
-        target = startPosition + target;
+        startPos = transform.position;
+        endPos = startPos + target;
     }
 
 
     void Update()
     {
-        if (isMoving)
+        if (isMoving && Vector3.Distance(transform.position, endPos) >= 0.001f)
         {
-            t += Time.deltaTime / timeToReachTarget;
-            transform.position = Vector3.Lerp(startPosition, target, t);
+            float step = speed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, endPos, step);
         }
+        else if (!isMoving && Vector3.Distance(transform.position, startPos) >= 0.001f)
+        {
+            float step = speed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, startPos, step);
+        }
+
     }
+
+
+    public void Move(Interactor user)
+    {
+        isMoving = true;
+
+    }
+
+
+    public void StopMove()
+    {
+        isMoving = false;
+
+    }
+
 
 }
