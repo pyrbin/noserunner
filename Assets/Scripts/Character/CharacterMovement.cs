@@ -1,4 +1,6 @@
+using System;
 using Unity.Mathematics;
+using UnityConstantsGenerator;
 using UnityEngine;
 
 #pragma warning disable 649
@@ -35,6 +37,10 @@ public class CharacterMovement : MonoBehaviour
 
     Transform cameraTransform;
 
+    public event Action<bool> OnGrounded;
+
+    bool Freezed = false;
+
     public void Jump()
     {
         jump = true;
@@ -43,6 +49,12 @@ public class CharacterMovement : MonoBehaviour
     public void Freeze()
     {
         MoveInput = float2.zero;
+        Freezed = true;
+    }
+
+    public void Unfreeze()
+    {
+        Freezed = false;
     }
 
     public void Awake()
@@ -56,18 +68,19 @@ public class CharacterMovement : MonoBehaviour
 
     public void Update()
     {
-        ApplyMovement();
-        ApplyJump();
+        if (!Freezed) ApplyMovement();
+        ApplyGravity();
+    }
+
+    public void Throw(float3 dir, float force, float hdamp = 1f)
+    {
+        // verticalVelocity.y += math.sqrt(force * -3.0f * Gravity);
+        verticalVelocity = dir * force;
+        verticalVelocity.y *= hdamp;
     }
 
     private void ApplyMovement()
     {
-        const float checkRadius = 0.1f;
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
-
-        IsGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
-
-
         var input = new float3(MoveInput.x, 0f, MoveInput.y);
         var move = cameraTransform.forward * input.z + cameraTransform.right * input.x;
         move.y = 0f;
@@ -77,7 +90,6 @@ public class CharacterMovement : MonoBehaviour
 
         if (DrawDebug)
         {
-            DebugDraw.Sphere(groundCheckOffset, checkRadius, IsGrounded ? Color.green : Color.red);
             DebugDraw.Line(transform.position, transform.position + moveForce, Color.cyan);
         }
 
@@ -87,11 +99,33 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void ApplyJump()
+    private void ApplyGravity()
     {
+        const float checkRadius = 0.1f;
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f) + checkRadius/2, 0f);
+
+        var isGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
+
+        if (isGrounded != IsGrounded)
+        {
+            OnGrounded?.Invoke(isGrounded);
+        }
+
+        IsGrounded = isGrounded;
+
+        if (DrawDebug)
+        {
+            DebugDraw.Sphere(groundCheckOffset, checkRadius, IsGrounded ? Color.green : Color.red);
+        }
+
         if (IsGrounded)
         {
             verticalVelocity.y = 0f;
+            if (Freezed)
+            {
+                verticalVelocity.x = 0f;
+                verticalVelocity.z = 0f;
+            }
         }
 
         // Changes the height position of the player..

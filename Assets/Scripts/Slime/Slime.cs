@@ -1,32 +1,94 @@
 using Unity.Mathematics;
+using UnityConstantsGenerator;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityTimer;
 
-public class Slime : MonoBehaviour
+public class Slime : Interactable
 {
     [SerializeField]
     public CharacterMovement Movement;
 
-    public float InitialSize = 2f;
+    public GameObject SlimePrefab;
+
+    public float InitialSize = 1f;
 
     [SerializeField]
     public SlimeSpecies Species;
 
+    public Timer ScaleTimer;
+
     public float Size
     {
-        get => transform.localScale.x / Species.Mods.Scale;
-        set => transform.localScale =
-            new float3(value * Species.Mods.Scale, value * Species.Mods.Scale, value * Species.Mods.Scale);
+        get
+        {
+            return size;
+        }
+        set
+        {
+            size = value;
+            var targetScale = new float3(size * Species.Mods.Scale, size * Species.Mods.Scale, size * Species.Mods.Scale);
+
+            if (ScaleTimer != null)
+            {
+                ScaleTimer.Cancel();
+            }
+
+            float transitionDuration = 1.5f;
+            ScaleTimer = Timer.Register(transitionDuration,
+               onUpdate: elapsed => transform.localScale = math.lerp(transform.localScale, targetScale, elapsed / transitionDuration),
+               onComplete: () => { });
+        }
     }
+
+    private float size = 1f;
 
     public float Speed => Species.BaseSpeed * Species.Mods.Speed * Size;
 
+    public float Radius => transform.localScale.x;
+
     public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump * Size;
+
+    private bool AboutToBeConsumed = false;
+
+    protected override void OnInteract(Interactor user)
+    {
+        if (AboutToBeConsumed) return;
+        var puppeteer = user.GetComponent<SlimePuppeteer>();
+        puppeteer.CurrentSlime.Consume(this);
+        AboutToBeConsumed = true;
+        gameObject.SetActive(false);
+    }
+
+    public void Consume(Slime slime)
+    {
+        Size += slime.Size;
+        Destroy(slime.gameObject);
+    }
+
+    public bool Split(out Slime slime, float3 offset)
+    {
+        slime = null;
+        if (Size <= 1f) return false;
+
+        var origin = (float3)transform.position + offset;
+        // origin.y = Size * Species.Mods.Scale / 2f;
+
+        var spawn = Instantiate(SlimePrefab, origin, quaternion.identity);
+
+        Size -= 1f;
+
+
+        slime = spawn.GetComponent<Slime>();
+        slime.Size = 1f;
+
+        return true;
+    }
 
     private void Awake()
     {
         Movement ??= GetComponent<CharacterMovement>();
         Size = InitialSize;
+        Movement.Unfreeze();
     }
 
     public float2 MoveInput
@@ -37,22 +99,22 @@ public class Slime : MonoBehaviour
 
     public void Jump()
     {
-        // Movement.JumpHeight = JumpHeight;
+        Movement.JumpHeight = JumpHeight;
         Movement.Jump();
     }
 
-    public void Update()
+    void Update()
     {
 
     }
 
     public void EnableControls()
     {
-        Movement.Freeze();
+        Movement.Unfreeze();
     }
 
     public void DisableControls()
     {
-
+        Movement.Freeze();
     }
 }
