@@ -1,12 +1,15 @@
 using Unity.Mathematics;
+using UnityConstantsGenerator;
 using UnityEngine;
 
-public class Slime : MonoBehaviour
+public class Slime : Interactable
 {
     [SerializeField]
     public CharacterMovement Movement;
 
-    public float InitialSize = 2f;
+    public GameObject SlimePrefab;
+
+    public float InitialSize = 1f;
 
     [SerializeField]
     public SlimeSpecies Species;
@@ -20,7 +23,45 @@ public class Slime : MonoBehaviour
 
     public float Speed => Species.BaseSpeed * Species.Mods.Speed * Size;
 
+    public float Radius => transform.localScale.x;
+
     public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump * Size;
+
+    private bool AboutToBeConsumed = false;
+
+    protected override void OnInteract(Interactor user)
+    {
+        if (AboutToBeConsumed) return;
+        var puppeteer = user.GetComponent<SlimePuppeteer>();
+        puppeteer.CurrentSlime.Consume(this);
+        AboutToBeConsumed = true;
+        gameObject.SetActive(false);
+    }
+
+    public void Consume(Slime slime)
+    {
+        Size += slime.Size;
+        Destroy(slime.gameObject);
+    }
+
+    public bool Split(out Slime slime, float3 offset)
+    {
+        slime = null;
+        if (Size <= 1f) return false;
+
+        var origin = (float3)transform.position + offset;
+        // origin.y = Size * Species.Mods.Scale / 2f;
+
+        var spawn = Instantiate(SlimePrefab, origin, quaternion.identity);
+
+        Size -= 1f;
+
+
+        slime = spawn.GetComponent<Slime>();
+        slime.Size = 1f;
+
+        return true;
+    }
 
     private void Awake()
     {
@@ -37,11 +78,11 @@ public class Slime : MonoBehaviour
 
     public void Jump()
     {
-        // Movement.JumpHeight = JumpHeight;
+        Movement.JumpHeight = JumpHeight;
         Movement.Jump();
     }
 
-    public void Update()
+    void Update()
     {
 
     }

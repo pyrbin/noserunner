@@ -14,47 +14,47 @@ public class Interactor : MonoBehaviour
     [SerializeField] private LayerMask layerMaskSlime;
 
     private Interactable currInteractable;
+    private Interactable currInteractableSwitchSlime;
+
+    private SlimePuppeteer puppeteer;
 
     public event Action<Interactable> Found;
     public event Action<Interactable> Lost;
 
-    public void Interact()
+    public void Awake()
     {
+        puppeteer ??= GetComponent<SlimePuppeteer>();
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (!context.action.triggered) return;
         if (currInteractable) currInteractable.Interact(this);
+    }
+
+    public void SwitchTo(InputAction.CallbackContext context)
+    {
+        if (!context.action.triggered) return;
+        if (currInteractable != null && currInteractable != currInteractableSwitchSlime) return;
+        if (currInteractableSwitchSlime == null) return;
+
+        if (currInteractableSwitchSlime.TryGetComponent<Slime>(out var slime))
+        {
+            puppeteer.SwitchSlime(slime);
+        }
     }
 
     private bool isEnabled = true;
 
-    public void EnableRaycasts()
-    {
-        isEnabled = false;
-        if (currInteractable)
-        {
-            Lost?.Invoke(currInteractable);
-            currInteractable = null;
-        }
-    }
-
-    public void DisableRaycasts()
-    {
-        isEnabled = false;
-        if (currInteractable)
-        {
-            Lost?.Invoke(currInteractable);
-            currInteractable = null;
-        }
-    }
-
     void Update()
     {
         if (!isEnabled) return;
-        if (!FindInteractable(layerMaskInteract, rayLength))
-        {
-            FindInteractable(layerMaskSlime, slimeRayLength);
-        }
+
+        FindInteractable(layerMaskInteract, rayLength, ref currInteractable);
+        FindInteractable(layerMaskSlime, slimeRayLength, ref currInteractableSwitchSlime);
     }
 
-    bool FindInteractable(int layerMask, int length)
+    bool FindInteractable(int layerMask, int length, ref Interactable current)
     {
         Interactable interactable = null;
 
@@ -63,19 +63,19 @@ public class Interactor : MonoBehaviour
             interactable = hit.transform.GetComponent<Interactable>();
             if (interactable)
             {
-                if (currInteractable != interactable)
+                if (current != interactable)
                 {
-                    if (currInteractable) Lost?.Invoke(currInteractable);
-                    currInteractable = interactable;
-                    Found?.Invoke(currInteractable);
+                    if (current) Lost?.Invoke(current);
+                    current = interactable;
+                    Found?.Invoke(current);
                 }
             }
             else
             {
-                if (currInteractable)
+                if (current)
                 {
-                    Lost?.Invoke(currInteractable);
-                    currInteractable = null;
+                    Lost?.Invoke(current);
+                    current = null;
                 }
             }
 
@@ -83,10 +83,10 @@ public class Interactor : MonoBehaviour
         }
         else
         {
-            if (currInteractable)
+            if (current)
             {
-                Lost?.Invoke(currInteractable);
-                currInteractable = null;
+                Lost?.Invoke(current);
+                current = null;
             }
         }
 
