@@ -1,4 +1,6 @@
+using System;
 using Unity.Mathematics;
+using UnityConstantsGenerator;
 using UnityEngine;
 
 #pragma warning disable 649
@@ -35,6 +37,8 @@ public class CharacterMovement : MonoBehaviour
 
     Transform cameraTransform;
 
+    public event Action<bool> OnGrounded;
+
     bool Freezed = false;
 
     public void Jump()
@@ -64,9 +68,15 @@ public class CharacterMovement : MonoBehaviour
 
     public void Update()
     {
-        if (!Freezed)
-            ApplyMovement();
+        if (!Freezed) ApplyMovement();
         ApplyGravity();
+    }
+
+    public void Throw(float3 dir, float force, float hdamp = 1f)
+    {
+        // verticalVelocity.y += math.sqrt(force * -3.0f * Gravity);
+        verticalVelocity = dir * force;
+        verticalVelocity.y *= hdamp;
     }
 
     private void ApplyMovement()
@@ -94,7 +104,14 @@ public class CharacterMovement : MonoBehaviour
         const float checkRadius = 0.1f;
         var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f) + checkRadius/2, 0f);
 
-        IsGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
+        var isGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
+
+        if (isGrounded != IsGrounded)
+        {
+            OnGrounded?.Invoke(isGrounded);
+        }
+
+        IsGrounded = isGrounded;
 
         if (DrawDebug)
         {
@@ -104,6 +121,11 @@ public class CharacterMovement : MonoBehaviour
         if (IsGrounded)
         {
             verticalVelocity.y = 0f;
+            if (Freezed)
+            {
+                verticalVelocity.x = 0f;
+                verticalVelocity.z = 0f;
+            }
         }
 
         // Changes the height position of the player..

@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 3740759320448257711}
   - component: {fileID: 3740759320448257708}
   - component: {fileID: 3740759320448257709}
-  - component: {fileID: 1058227957}
   m_Layer: 7
   m_Name: Slime
   m_TagString: Untagged
@@ -145,7 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Movement: {fileID: 3740759320448257711}
-  InitialSize: 6
+  SlimePrefab: {fileID: 3740759320448257706}
+  InitialSize: 1
   Species: {fileID: 11400000, guid: 084ede3ca35d9084db111dc2c0811ed9, type: 2}
 --- !u!114 &3740759320448257711
 MonoBehaviour:
@@ -200,16 +200,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1058227957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740759320448257706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e58ff0ed0ccf9ba4a957e5c101598f87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Puppeteer: {fileID: 0}

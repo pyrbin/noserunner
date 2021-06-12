@@ -22,6 +22,11 @@ namespace UnityConstantsGenerator
         IgnoreRaycast = 2,
 
         /// <summary>
+        /// Player
+        /// </summary>
+        Player = 3,
+
+        /// <summary>
         /// Water
         /// </summary>
         Water = 4,
@@ -60,6 +65,11 @@ namespace UnityConstantsGenerator
         /// Ignore Raycast
         /// </summary>
         IgnoreRaycast = 1 << 2,
+
+        /// <summary>
+        /// Player
+        /// </summary>
+        Player = 1 << 3,
 
         /// <summary>
         /// Water
