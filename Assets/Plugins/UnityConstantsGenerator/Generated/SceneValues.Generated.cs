@@ -7,17 +7,29 @@ namespace UnityConstantsGenerator
     public class SceneId
     {
         /// <summary>
-        /// <para>0: SampleScene</para>
+        /// <para>0: MainMenu</para>
+        /// Assets/Scenes/MainMenu.unity
+        /// </summary>
+        public const int MainMenu = 0;
+
+        /// <summary>
+        /// <para>1: SampleScene</para>
         /// Assets/Scenes/SampleScene.unity
         /// </summary>
-        public const int SampleScene = 0;
+        public const int SampleScene = 1;
 
     }
 
     public class SceneName
     {
         /// <summary>
-        /// <para>0: SampleScene</para>
+        /// <para>0: MainMenu</para>
+        /// Assets/Scenes/MainMenu.unity
+        /// </summary>
+        public const string MainMenu = "MainMenu";
+
+        /// <summary>
+        /// <para>1: SampleScene</para>
         /// Assets/Scenes/SampleScene.unity
         /// </summary>
         public const string SampleScene = "SampleScene";
@@ -27,7 +39,13 @@ namespace UnityConstantsGenerator
     public class ScenePath
     {
         /// <summary>
-        /// <para>0: SampleScene</para>
+        /// <para>0: MainMenu</para>
+        /// Assets/Scenes/MainMenu.unity
+        /// </summary>
+        public const string MainMenu = "Assets/Scenes/MainMenu.unity";
+
+        /// <summary>
+        /// <para>1: SampleScene</para>
         /// Assets/Scenes/SampleScene.unity
         /// </summary>
         public const string SampleScene = "Assets/Scenes/SampleScene.unity";
