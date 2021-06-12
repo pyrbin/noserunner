@@ -1,10 +1,5 @@
-using System.Collections;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Serialization;
-using UnityEngine.Events;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Collider))]
