@@ -16,6 +16,9 @@ public class CharacterMovement : MonoBehaviour
 
     [HideInInspector]
     public float Speed = 10f;
+    [Range(0, .3f)]
+    [SerializeField]
+    private float MovementSmoothing = .05f;
 
     public float2 MoveInput { get; set; }
     private float3 verticalVelocity = float3.zero;
@@ -44,6 +47,8 @@ public class CharacterMovement : MonoBehaviour
 
     bool Freezed = false;
 
+    Vector3 Velocity = Vector3.zero;
+
     public void Jump()
     {
         jump = true;
@@ -69,7 +74,7 @@ public class CharacterMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (!Freezed) ApplyMovement();
         ApplyGravity();
@@ -89,8 +94,11 @@ public class CharacterMovement : MonoBehaviour
         var move = cameraTransform.forward * input.z + cameraTransform.right * input.x;
         move.y = 0f;
 
-        var moveForce = move * Time.deltaTime * Speed;
-        Controller.Move(moveForce);
+        var moveForce = move * Speed;
+        var smoothed = Vector3.SmoothDamp(Controller.velocity, moveForce, ref Velocity, MovementSmoothing);
+        smoothed.y = 0f;
+
+        Controller.Move(smoothed * Time.fixedDeltaTime);
 
         if (DrawDebug)
         {
@@ -135,8 +143,8 @@ public class CharacterMovement : MonoBehaviour
             verticalVelocity.y += math.sqrt(JumpHeight * -3.0f * Gravity);
         }
 
-        verticalVelocity.y += Gravity * Time.deltaTime;
-        Controller.Move(verticalVelocity * Time.deltaTime);
+        verticalVelocity.y += Gravity * Time.fixedDeltaTime;
+        Controller.Move(verticalVelocity * Time.fixedDeltaTime);
 
         jump = false;
     }
