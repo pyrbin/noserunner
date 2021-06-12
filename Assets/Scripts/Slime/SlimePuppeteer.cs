@@ -32,6 +32,12 @@ public class SlimePuppeteer : MonoBehaviour
         SwitchSlime(nextIndex);
     }
 
+    public void SwitchSlime(Slime slime)
+    {
+        var index = Slimes.IndexOf(slime);
+        SwitchSlime(index);
+    }
+
     public void SwitchSlime(int index)
     {
         if (index >= Slimes.Count) return;
@@ -48,7 +54,7 @@ public class SlimePuppeteer : MonoBehaviour
 
         Current = index;
 
-        if (last)
+        if (last && last != CurrentSlime)
         {
             CurrentSlime.transform.LookAt(last.transform);
         }

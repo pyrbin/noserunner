@@ -2,15 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Interactor : MonoBehaviour
 {
-
-    [SerializeField] private Camera origin;
-
     [SerializeField] private int rayLength = 10;
     [SerializeField] private LayerMask layerMaskInteract;
+
+    [SerializeField] private int slimeRayLength = 100;
+    [SerializeField] private LayerMask layerMaskSlime;
 
     private Interactable currInteractable;
 
@@ -22,23 +23,44 @@ public class Interactor : MonoBehaviour
         if (currInteractable) currInteractable.Interact(this);
     }
 
+    private bool isEnabled = true;
+
+    public void EnableRaycasts()
+    {
+        isEnabled = false;
+        if (currInteractable)
+        {
+            Lost?.Invoke(currInteractable);
+            currInteractable = null;
+        }
+    }
+
+    public void DisableRaycasts()
+    {
+        isEnabled = false;
+        if (currInteractable)
+        {
+            Lost?.Invoke(currInteractable);
+            currInteractable = null;
+        }
+    }
 
     void Update()
     {
-        FindInteractable();
+        if (!isEnabled) return;
+        if (!FindInteractable(layerMaskInteract, rayLength))
+        {
+            FindInteractable(layerMaskSlime, slimeRayLength);
+        }
     }
 
-    void FindInteractable()
+    bool FindInteractable(int layerMask, int length)
     {
-        RaycastHit hit;
-        Vector3 fwd = origin.transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(origin.transform.position, fwd * 10, Color.red);
         Interactable interactable = null;
 
-        if (Physics.Raycast(origin.transform.position, fwd, out hit, rayLength, layerMaskInteract))
+        if (CastRay(length, layerMask, out var hit))
         {
             interactable = hit.transform.GetComponent<Interactable>();
-
             if (interactable)
             {
                 if (currInteractable != interactable)
@@ -56,6 +78,8 @@ public class Interactor : MonoBehaviour
                     currInteractable = null;
                 }
             }
+
+            DebugDraw.Line(Camera.main.transform.position, hit.transform.position, interactable != null ? Color.green : Color.red);
         }
         else
         {
@@ -65,7 +89,14 @@ public class Interactor : MonoBehaviour
                 currInteractable = null;
             }
         }
+
+        return interactable != null;
     }
 
-
+    bool CastRay(int length, int layerMask, out RaycastHit hit)
+    {
+        var fwd = Camera.main.transform.TransformDirection(Vector3.forward);
+        var result = Physics.Raycast(Camera.main.transform.position, fwd, out hit, length, layerMask);
+        return result;
+    }
 }

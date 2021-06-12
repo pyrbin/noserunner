@@ -1,6 +1,5 @@
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Slime : MonoBehaviour
 {
@@ -27,6 +26,7 @@ public class Slime : MonoBehaviour
     {
         Movement ??= GetComponent<CharacterMovement>();
         Size = InitialSize;
+        Movement.Unfreeze();
     }
 
     public float2 MoveInput
@@ -48,11 +48,11 @@ public class Slime : MonoBehaviour
 
     public void EnableControls()
     {
-        Movement.Freeze();
+        Movement.Unfreeze();
     }
 
     public void DisableControls()
     {
-
+        Movement.Freeze();
     }
 }

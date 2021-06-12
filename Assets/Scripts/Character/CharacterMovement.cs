@@ -35,6 +35,8 @@ public class CharacterMovement : MonoBehaviour
 
     Transform cameraTransform;
 
+    bool Freezed = false;
+
     public void Jump()
     {
         jump = true;
@@ -43,6 +45,12 @@ public class CharacterMovement : MonoBehaviour
     public void Freeze()
     {
         MoveInput = float2.zero;
+        Freezed = true;
+    }
+
+    public void Unfreeze()
+    {
+        Freezed = false;
     }
 
     public void Awake()
@@ -56,18 +64,13 @@ public class CharacterMovement : MonoBehaviour
 
     public void Update()
     {
-        ApplyMovement();
-        ApplyJump();
+        if (!Freezed)
+            ApplyMovement();
+        ApplyGravity();
     }
 
     private void ApplyMovement()
     {
-        const float checkRadius = 0.1f;
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
-
-        IsGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
-
-
         var input = new float3(MoveInput.x, 0f, MoveInput.y);
         var move = cameraTransform.forward * input.z + cameraTransform.right * input.x;
         move.y = 0f;
@@ -77,7 +80,6 @@ public class CharacterMovement : MonoBehaviour
 
         if (DrawDebug)
         {
-            DebugDraw.Sphere(groundCheckOffset, checkRadius, IsGrounded ? Color.green : Color.red);
             DebugDraw.Line(transform.position, transform.position + moveForce, Color.cyan);
         }
 
@@ -87,8 +89,18 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void ApplyJump()
+    private void ApplyGravity()
     {
+        const float checkRadius = 0.1f;
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
+
+        IsGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
+
+        if (DrawDebug)
+        {
+            DebugDraw.Sphere(groundCheckOffset, checkRadius, IsGrounded ? Color.green : Color.red);
+        }
+
         if (IsGrounded)
         {
             verticalVelocity.y = 0f;
