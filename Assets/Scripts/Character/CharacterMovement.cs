@@ -15,7 +15,7 @@ public class CharacterMovement : MonoBehaviour
     CharacterController Controller;
 
     [HideInInspector]
-    public float Speed = 11f;
+    public float Speed = 10f;
 
     public float2 MoveInput { get; set; }
     private float3 verticalVelocity = float3.zero;
@@ -28,6 +28,9 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     float Gravity = -9.81f;
+
+    [SerializeField]
+    float CheckGroundedOffset = 0.1f;
 
     [Header("Debug Draw")]
     bool DrawDebug = true;
@@ -102,10 +105,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        const float checkRadius = 0.1f;
-        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f), 0f);
-
-        var isGrounded = Physics.CheckSphere(groundCheckOffset, checkRadius, GroundMask);
+        var groundCheckOffset = (float3)transform.position + new float3(0f, -(Controller.height * transform.localScale.y / 2f) - CheckGroundedOffset / 2f, 0f);
+        var isGrounded = Physics.CheckSphere(groundCheckOffset, CheckGroundedOffset, GroundMask);
 
         if (isGrounded != IsGrounded)
         {
@@ -113,16 +114,14 @@ public class CharacterMovement : MonoBehaviour
         }
 
         IsGrounded = isGrounded;
-
         if (DrawDebug)
         {
-            DebugDraw.Sphere(groundCheckOffset, checkRadius, IsGrounded ? Color.green : Color.red);
+            DebugDraw.Sphere(groundCheckOffset, CheckGroundedOffset, IsGrounded ? Color.green : Color.red);
         }
 
         if (IsGrounded)
         {
             verticalVelocity.y = 0f;
-
             if (Freezed || (verticalVelocity.x > 0f || verticalVelocity.z > 0f))
             {
                 verticalVelocity.x = 0f;
