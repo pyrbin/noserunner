@@ -668,6 +668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 7798177768029063379}
+  puppeteer: {fileID: 0}
+  playerInput: {fileID: 0}
+  camera: {fileID: 0}
 --- !u!1 &7798177768735512490
 GameObject:
   m_ObjectHideFlags: 0
