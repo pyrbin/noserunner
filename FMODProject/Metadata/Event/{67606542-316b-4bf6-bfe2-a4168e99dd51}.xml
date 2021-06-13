@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{67606542-316b-4bf6-bfe2-a4168e99dd51}">
 		<property name="name">
-			<value>voiceSlime</value>
+			<value>voiceHelpSlime</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>

@@ -99,7 +99,8 @@ public class SlimePuppeteer : MonoBehaviour
 
     public float3 LocalFireLocation()
     {
-        return ((float3)LookDirection()) * (CurrentSlime.Radius / 2f + 0.65f);
+        var pos = ((float3)LookDirection()) * (CurrentSlime.Radius / 2f + 0.65f);
+        return pos;
     }
 
     private void Update()
