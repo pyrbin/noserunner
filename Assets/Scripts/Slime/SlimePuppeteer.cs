@@ -25,6 +25,8 @@ public class SlimePuppeteer : MonoBehaviour
         return math.normalizesafe((float3)Camera.main.transform.TransformDirection(Vector3.forward).normalized + new float3(0f, 0.3f, 0));
     }
 
+    public bool IsShooting => holdSplit || stopShoot;
+
     bool holdSplit = false;
 
     public float force = 0f;
@@ -53,12 +55,11 @@ public class SlimePuppeteer : MonoBehaviour
 
         if (shoot && CurrentSlime.Split(out var slime, LocalFireLocation()))
         {
-            CurrentSlime.GetComponentInChildren<Collider>().enabled = false;
-
-            slime.Movement.ApplyForce(ForceWithDamp(look));
-
-            slime.DisableControls();
             stopShoot = true;
+
+            CurrentSlime.GetComponentInChildren<Collider>().enabled = false;
+            slime.Movement.ApplyForce(ForceWithDamp(look));
+            slime.DisableControls();
             Timer.Register(shootCooldownInSeconds, () =>
             {
                 try
@@ -124,6 +125,7 @@ public class SlimePuppeteer : MonoBehaviour
 
     public void SwitchSlime(Slime slime)
     {
+        if (IsShooting) return;
         if (slime.AboutToBeConsumed) return;
 
         var last = CurrentSlime;

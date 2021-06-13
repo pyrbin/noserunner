@@ -261,7 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81afaf150482cd744b75729cbc9488a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puppeteer: {fileID: 0}
   interactor: {fileID: 0}
+  image: {fileID: 48421905355100455}
 --- !u!1 &2270698054770227433
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,9 +680,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3eac69e3f765914eb173d2ac448206b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
-  hoverColor: {r: 1, g: 0.042390257, b: 0.033018887, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0.4067732, g: 1, b: 0, a: 1}
   interactor: {fileID: 0}
+  slimePuppeteer: {fileID: 0}
 --- !u!1 &2270698055379451674
 GameObject:
   m_ObjectHideFlags: 0
