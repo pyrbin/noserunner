@@ -1242,7 +1242,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 49
+    m_FontSize: 33
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -1254,7 +1254,10 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: The objective is to solve the puzzle. You are controlling the Slime and
-    the goal is for the Slime to escape the level.
+    the goal is for the Slime to escape the level. You navigate the puzzle with the
+    help of pressure plates. Different plates need different amount of force to activate.
+    It is also possible to shoot parts of yourself and take control of these parts.
+    Experiment to see what works or not!
 --- !u!222 &538102913
 CanvasRenderer:
   m_ObjectHideFlags: 0
