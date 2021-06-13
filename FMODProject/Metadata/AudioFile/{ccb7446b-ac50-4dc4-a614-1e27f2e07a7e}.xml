@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{ccb7446b-ac50-4dc4-a614-1e27f2e07a7e}">
+		<property name="assetPath">
+			<value>slimeDivideBleh.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.3003174603174603</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5514b572-c26a-43c4-b9a5-ca9b1bb17c0f}</destination>
+		</relationship>
+	</object>
+</objects>

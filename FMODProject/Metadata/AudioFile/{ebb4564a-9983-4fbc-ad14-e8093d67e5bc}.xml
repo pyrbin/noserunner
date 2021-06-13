@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{ebb4564a-9983-4fbc-ad14-e8093d67e5bc}">
+		<property name="assetPath">
+			<value>bloop_01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.16464852607709751</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5514b572-c26a-43c4-b9a5-ca9b1bb17c0f}</destination>
+		</relationship>
+	</object>
+</objects>
