@@ -197,6 +197,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1788326203705142106, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: puppeteer
+      value: 
+      objectReference: {fileID: 2542395916625564136}
+    - target: {fileID: 1788326203705142106, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
       propertyPath: interactor
       value: 
       objectReference: {fileID: 2542395916625564137}
@@ -301,9 +305,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2542395916625564136}
     - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
       propertyPath: interactor
       value: 
       objectReference: {fileID: 2542395916625564137}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: hoverColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: hoverColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: hoverColor.r
+      value: 0.4067732
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270698055269514236, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
+      propertyPath: slimePuppeteer
+      value: 
+      objectReference: {fileID: 2542395916625564136}
     - target: {fileID: 2270698055379451672, guid: 4d27d5f0414b9844fb893219da55c48c, type: 3}
       propertyPath: slimePuppeteer
       value: 

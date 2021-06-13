@@ -32,6 +32,7 @@ public class Interactor : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
+        if (puppeteer.IsShooting) return;
         if (!context.action.triggered || disableInteract) return;
         if (currInteractable) currInteractable.Interact(this);
         disableInteract = true;

@@ -9,6 +9,7 @@ public class AimCursor : MonoBehaviour
     public Color color;
     public Color hoverColor;
     public Interactor interactor;
+    public SlimePuppeteer slimePuppeteer;
 
     private Image image;
 
@@ -17,23 +18,23 @@ public class AimCursor : MonoBehaviour
     {
         image = GetComponent<Image>();
         image.color = color;
-
-        interactor.Found += (interactable) =>
-        {
-            image.color = hoverColor;
-        };
-
-        interactor.Lost += (interactable) =>
-        {
-            image.color = color;
-        };
     }
 
     void Update()
     {
-        if (interactor.currInteractableSwitchSlime)
+        if (slimePuppeteer.IsShooting)
+        {
+            image.color = color;
+            return;
+        }
+
+        if (interactor.currInteractableSwitchSlime || interactor.currInteractable)
         {
             image.color = hoverColor;
+        }
+        else
+        {
+            image.color = color;
         }
     }
 }
