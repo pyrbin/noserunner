@@ -31,6 +31,11 @@ public class TVController : Interactable
         soundState.start();
     }
 
+    void Update()
+    {
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundState, GetComponent<Transform>(), GetComponent<Rigidbody>());
+    }
+
     private void Switch()
     {
 
