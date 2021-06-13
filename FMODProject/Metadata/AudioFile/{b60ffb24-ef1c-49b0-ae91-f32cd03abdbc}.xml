@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{b60ffb24-ef1c-49b0-ae91-f32cd03abdbc}">
+		<property name="assetPath">
+			<value>slimeFootstepsSmall_06.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.49156462585034011</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5514b572-c26a-43c4-b9a5-ca9b1bb17c0f}</destination>
+		</relationship>
+	</object>
+</objects>

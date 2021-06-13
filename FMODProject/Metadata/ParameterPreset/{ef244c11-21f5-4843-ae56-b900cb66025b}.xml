@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{ef244c11-21f5-4843-ae56-b900cb66025b}">
+		<property name="name">
+			<value>SoundSize</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f59047bd-7fc1-4c18-b2a8-bae429c2a46e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{164fcbb6-57a7-4ae6-a21d-19df13893c53}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{164fcbb6-57a7-4ae6-a21d-19df13893c53}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>small</value>
+			<value>middle</value>
+			<value>big</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
