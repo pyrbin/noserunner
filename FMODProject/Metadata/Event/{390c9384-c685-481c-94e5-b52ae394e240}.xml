@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{390c9384-c685-481c-94e5-b52ae394e240}">
 		<property name="name">
-			<value>bridgeScrape</value>
+			<value>bridgeScrape0</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -33,9 +33,6 @@
 		</relationship>
 		<relationship name="parameters">
 			<destination>{79b4ba28-927a-4704-93cc-948ea2ca5a10}</destination>
-		</relationship>
-		<relationship name="banks">
-			<destination>{efe505b3-0f35-43d6-80a4-78d5af7f394f}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{a8515568-3a44-442c-a43b-8b85a9077ba2}">

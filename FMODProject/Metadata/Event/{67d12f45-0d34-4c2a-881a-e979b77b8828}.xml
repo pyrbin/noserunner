@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{67d12f45-0d34-4c2a-881a-e979b77b8828}">
 		<property name="name">
-			<value>doorSlide</value>
+			<value>doorSlide0</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -33,9 +33,6 @@
 		</relationship>
 		<relationship name="parameters">
 			<destination>{5cce2f1a-f29f-40af-8b3b-c46dd9ea019b}</destination>
-		</relationship>
-		<relationship name="banks">
-			<destination>{efe505b3-0f35-43d6-80a4-78d5af7f394f}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{45f977ae-22b9-4b1a-a2a2-b3c13d690168}">
