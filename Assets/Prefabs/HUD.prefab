@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactor: {fileID: 0}
+  image: {fileID: 48421905355100455}
 --- !u!1 &2270698054770227433
 GameObject:
   m_ObjectHideFlags: 0
