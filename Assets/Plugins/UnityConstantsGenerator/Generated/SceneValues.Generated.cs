@@ -18,6 +18,12 @@ namespace UnityConstantsGenerator
         /// </summary>
         public const int SampleScene = 1;
 
+        /// <summary>
+        /// <para>2: Tutorial</para>
+        /// Assets/Scenes/Tutorial.unity
+        /// </summary>
+        public const int Tutorial = 2;
+
     }
 
     public class SceneName
@@ -34,6 +40,12 @@ namespace UnityConstantsGenerator
         /// </summary>
         public const string SampleScene = "SampleScene";
 
+        /// <summary>
+        /// <para>2: Tutorial</para>
+        /// Assets/Scenes/Tutorial.unity
+        /// </summary>
+        public const string Tutorial = "Tutorial";
+
     }
 
     public class ScenePath
@@ -49,6 +61,12 @@ namespace UnityConstantsGenerator
         /// Assets/Scenes/SampleScene.unity
         /// </summary>
         public const string SampleScene = "Assets/Scenes/SampleScene.unity";
+
+        /// <summary>
+        /// <para>2: Tutorial</para>
+        /// Assets/Scenes/Tutorial.unity
+        /// </summary>
+        public const string Tutorial = "Assets/Scenes/Tutorial.unity";
 
     }
 
