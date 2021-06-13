@@ -14,8 +14,8 @@ public class Interactor : MonoBehaviour
     [SerializeField] private int slimeRayLength = 100;
     [SerializeField] private LayerMask layerMaskSlime;
 
-    private Interactable currInteractable;
-    private Interactable currInteractableSwitchSlime;
+    public Interactable currInteractable;
+    public Interactable currInteractableSwitchSlime;
 
     private SlimePuppeteer puppeteer;
 

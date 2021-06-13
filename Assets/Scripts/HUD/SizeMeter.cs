@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class SizeMeter : MonoBehaviour
 {
-
     public SlimePuppeteer slimePuppeteer;
     public TextMeshProUGUI text;
 
-    // Start is called before the first frame update
-    void Start()
+    float ScaleClamped => math.clamp(slimePuppeteer.CurrentSlime.Size * 0.5f, .8f, 5f);
+
+    void Update()
     {
         text.text = slimePuppeteer.CurrentSlime.Size.ToString();
-        slimePuppeteer.SlimeChanged += (slime) =>
-        {
-            text.text = slime.Size.ToString();
-        };
+        transform.parent.localScale = new float3(ScaleClamped, ScaleClamped, ScaleClamped);
     }
-
 }

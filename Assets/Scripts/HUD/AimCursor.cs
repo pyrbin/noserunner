@@ -28,4 +28,12 @@ public class AimCursor : MonoBehaviour
             image.color = color;
         };
     }
+
+    void Update()
+    {
+        if (interactor.currInteractableSwitchSlime)
+        {
+            image.color = hoverColor;
+        }
+    }
 }
