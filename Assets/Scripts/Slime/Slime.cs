@@ -12,7 +12,7 @@ public class Slime : Interactable
 
     public override string InteractionDescription()
     {
-        return "JOIN TOGETHER ;) with slime.";
+        return "Merge slime";
     }
 
     public float InitialSize = 1f;
