@@ -2279,6 +2279,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1352500095}
+        m_TargetAssemblyTypeName: ButtonClicker, Assembly-CSharp
+        m_MethodName: clicker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &964124421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,6 +2514,18 @@ MonoBehaviour:
       - m_Target: {fileID: 732510503}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1352500095}
+        m_TargetAssemblyTypeName: ButtonClicker, Assembly-CSharp
+        m_MethodName: clicker
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2822,6 +2846,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1352500095}
+        m_TargetAssemblyTypeName: ButtonClicker, Assembly-CSharp
+        m_MethodName: clicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3524,6 +3560,7 @@ GameObject:
   - component: {fileID: 1352500094}
   - component: {fileID: 1352500093}
   - component: {fileID: 1352500092}
+  - component: {fileID: 1352500095}
   m_Layer: 5
   m_Name: ButtonBackground
   m_TagString: Untagged
@@ -3592,6 +3629,19 @@ RectTransform:
   m_AnchoredPosition: {x: 262, y: -167}
   m_SizeDelta: {x: 841.6814, y: 627.008}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1352500095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352500091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03aed29885f142c41b439b9214efef54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: event:/Menu/clickButton
 --- !u!1 &1394100074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4233,6 +4283,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1352500095}
+        m_TargetAssemblyTypeName: ButtonClicker, Assembly-CSharp
+        m_MethodName: clicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5417,6 +5479,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1352500095}
+        m_TargetAssemblyTypeName: ButtonClicker, Assembly-CSharp
+        m_MethodName: clicker
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
