@@ -31,31 +31,53 @@ public class SlimePuppeteer : MonoBehaviour
     [Header("Throw forces")]
     public float2 minMaxForce = new float2(3f, 10f);
     public float forceGainPerSeconds = 2f;
-    public float horizontalForceDamp = 0.75f;
-
+    public float horizontalForceDamp = 0.55f;
+    public float shootCooldownInSeconds = 1f;
     public event Action<Slime> SlimeChanged;
+
+    private bool stopShoot = false;
 
     public void Split(InputAction.CallbackContext context)
     {
-        if (CurrentSlime == null) return;
+        if (CurrentSlime == null || CurrentSlime.Size == 1f || stopShoot) return;
 
         var shoot = holdSplit && !context.action.triggered;
 
         holdSplit = context.action.triggered;
-
-        if (shoot && CurrentSlime.Split(out var slime, LookDirection() * CurrentSlime.Radius))
+        var look = math.normalizesafe(LookDirection() + new float3(0f, 0.3f, 0));
+        if (shoot && CurrentSlime.Split(out var slime, look * CurrentSlime.Radius))
         {
-            slime.DisableControls();
             CurrentSlime.GetComponentInChildren<Collider>().enabled = false;
 
-            slime.Movement.Throw(LookDirection(), force);
+            slime.Movement.Throw(look, force, horizontalForceDamp);
+            slime.DisableControls();
+            stopShoot = true;
+            Timer.Register(shootCooldownInSeconds, () =>
+            {
+                try
+                {
+                    stopShoot = false;
+                }
+                catch
+                {
+
+                }
+            });
+
+            force = minMaxForce.x;
+            SlimeChanged?.Invoke(CurrentSlime);
+
             Timer.Register(.1f, () =>
             {
-                CurrentSlime.GetComponentInChildren<Collider>().enabled = true;
-            });
-            force = minMaxForce.x;
+                try
+                {
+                    CurrentSlime.GetComponentInChildren<Collider>().enabled = true;
+                }
+                catch
+                {
 
-            SlimeChanged?.Invoke(CurrentSlime);
+                }
+            });
         }
     }
 

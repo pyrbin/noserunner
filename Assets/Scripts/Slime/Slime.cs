@@ -35,18 +35,28 @@ public class Slime : Interactable
 
             float transitionDuration = 1.5f;
             ScaleTimer = Timer.Register(transitionDuration,
-               onUpdate: elapsed => transform.localScale = math.lerp(transform.localScale, targetScale, elapsed / transitionDuration),
+               onUpdate: elapsed =>
+                {
+                    try
+                    {
+                        transform.localScale = math.lerp(transform.localScale, targetScale, elapsed / transitionDuration);
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
+                },
                onComplete: () => { });
         }
     }
 
     private float size = 1f;
 
-    public float Speed => Species.BaseSpeed * Species.Mods.Speed * Size;
+    public float Speed => Species.BaseSpeed * Species.Mods.Speed / Size;
 
     public float Radius => transform.localScale.x;
 
-    public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump * Size;
+    public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump / Size;
 
     private bool AboutToBeConsumed = false;
 
@@ -105,7 +115,12 @@ public class Slime : Interactable
 
     void Update()
     {
+        Movement.Speed = Speed;
+    }
 
+    public void OnDisable()
+    {
+        ScaleTimer.Cancel();
     }
 
     public void EnableControls()
@@ -116,5 +131,10 @@ public class Slime : Interactable
     public void DisableControls()
     {
         Movement.Freeze();
+    }
+
+    public override string InteractionDescription()
+    {
+        return "JOIN TOGETHER ;) with slime.";
     }
 }
