@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 5148722677690040626}
   - component: {fileID: 2857974328028213014}
   - component: {fileID: 1088391268928262615}
+  - component: {fileID: 5737323686325638499}
   m_Layer: 5
   m_Name: LevelComplete
   m_TagString: Untagged
@@ -224,6 +225,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6520455d62634ec459b8e77fdb1a8419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5737323686325638499
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2659295432009225821}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39bb144090e761947abf095749695358, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2910780754021850196
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +310,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: ec461b36751d60c43868fc5f836510b2, type: 3}
     m_FontSize: 92
     m_FontStyle: 0
     m_BestFit: 0
@@ -369,7 +389,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: ec461b36751d60c43868fc5f836510b2, type: 3}
     m_FontSize: 92
     m_FontStyle: 0
     m_BestFit: 0
@@ -548,7 +568,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: ec461b36751d60c43868fc5f836510b2, type: 3}
     m_FontSize: 135
     m_FontStyle: 0
     m_BestFit: 0
