@@ -820,6 +820,18 @@ PrefabInstance:
       propertyPath: VirtualCamera
       value: 
       objectReference: {fileID: 627646770}
+    - target: {fileID: 2542395917729625042, guid: 17d43083b42672141a1c3771482dddd9, type: 3}
+      propertyPath: minMaxForce.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542395917729625042, guid: 17d43083b42672141a1c3771482dddd9, type: 3}
+      propertyPath: minMaxForce.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2542395917729625042, guid: 17d43083b42672141a1c3771482dddd9, type: 3}
+      propertyPath: horizontalForceDamp
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2542395917729625043, guid: 17d43083b42672141a1c3771482dddd9, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -881,25 +893,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3740759319415696631, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3740759320448257697, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3740759320448257697, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3740759320448257697, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3740759320448257697, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.68
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3740759320448257697, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -933,14 +941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
-    - target: {fileID: 3740759320448257710, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
-      propertyPath: InitialSize
-      value: 6
+    - target: {fileID: 3740759320448257711, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
+      propertyPath: MovementSmoothing
+      value: 0.072
       objectReference: {fileID: 0}
-    - target: {fileID: 3740759320448257710, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
-      propertyPath: SlimePrefab
-      value: 
-      objectReference: {fileID: 3740759320448257706, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80327f0d2fd78404792eb6ab45a91b3b, type: 3}
 --- !u!1001 &6757577979496547647

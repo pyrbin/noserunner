@@ -17,7 +17,7 @@ MonoBehaviour:
     passTag: SlimesInFront
     Event: 300
     filterSettings:
-      RenderQueueType: 0
+      RenderQueueType: 1
       LayerMask:
         serializedVersion: 2
         m_Bits: 128
@@ -56,7 +56,7 @@ MonoBehaviour:
     passTag: SlimesBehind
     Event: 300
     filterSettings:
-      RenderQueueType: 0
+      RenderQueueType: 1
       LayerMask:
         serializedVersion: 2
         m_Bits: 128

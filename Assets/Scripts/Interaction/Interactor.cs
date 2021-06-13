@@ -50,8 +50,12 @@ public class Interactor : MonoBehaviour
     {
         if (!isEnabled) return;
 
+        var current = currInteractable;
         FindInteractable(layerMaskInteract, rayLength, ref currInteractable);
         FindInteractable(layerMaskSlime, slimeRayLength, ref currInteractableSwitchSlime);
+
+        if (currInteractable != null && currInteractable != current)
+            Found?.Invoke(currInteractable);
     }
 
     bool FindInteractable(int layerMask, int length, ref Interactable current)
@@ -67,7 +71,6 @@ public class Interactor : MonoBehaviour
                 {
                     if (current) Lost?.Invoke(current);
                     current = interactable;
-                    Found?.Invoke(current);
                 }
             }
             else
