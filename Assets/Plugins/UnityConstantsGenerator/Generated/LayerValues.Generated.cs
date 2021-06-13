@@ -46,6 +46,11 @@ namespace UnityConstantsGenerator
         /// </summary>
         Slimes = 7,
 
+        /// <summary>
+        /// Ceiling
+        /// </summary>
+        Ceiling = 8,
+
     }
 
     [System.Flags]
@@ -90,6 +95,11 @@ namespace UnityConstantsGenerator
         /// Slimes
         /// </summary>
         Slimes = 1 << 7,
+
+        /// <summary>
+        /// Ceiling
+        /// </summary>
+        Ceiling = 1 << 8,
 
     }
 
