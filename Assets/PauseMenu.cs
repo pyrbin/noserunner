@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -10,7 +11,8 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
-
+    public SlimePuppeteer puppeteer;
+    public PlayerInput playerInput;
     public CinemachineVirtualCamera camera;
 
     // Update is called once per frame
@@ -37,6 +39,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         camera.enabled = true;
+        puppeteer.enabled = true;
+        playerInput.enabled = true;
     }
 
 
@@ -48,6 +52,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         camera.enabled = false;
+        puppeteer.enabled = false;
+        playerInput.enabled = false;
     }
 
     public void LoadMenu()
