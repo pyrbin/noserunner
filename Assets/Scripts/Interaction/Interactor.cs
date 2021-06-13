@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityTimer;
 
 public class Interactor : MonoBehaviour
 {
@@ -26,21 +27,36 @@ public class Interactor : MonoBehaviour
         puppeteer ??= GetComponent<SlimePuppeteer>();
     }
 
+    bool disableSwitchTo = false;
+    bool disableInteract = false;
+
     public void Interact(InputAction.CallbackContext context)
     {
-        if (!context.action.triggered) return;
+        if (!context.action.triggered || disableInteract) return;
         if (currInteractable) currInteractable.Interact(this);
+        disableInteract = true;
+        Timer.Register(0.5f, () =>
+        {
+            try { disableInteract = false; }
+            catch { }
+        });
     }
 
     public void SwitchTo(InputAction.CallbackContext context)
     {
-        if (!context.action.triggered) return;
+        if (!context.action.triggered || disableInteract) return;
         if (currInteractable != null && currInteractable != currInteractableSwitchSlime) return;
         if (currInteractableSwitchSlime == null) return;
 
         if (currInteractableSwitchSlime.TryGetComponent<Slime>(out var slime))
         {
             puppeteer.SwitchSlime(slime);
+            disableSwitchTo = true;
+            Timer.Register(0.5f, () =>
+            {
+                try { disableSwitchTo = false; }
+                catch { }
+            });
         }
     }
 

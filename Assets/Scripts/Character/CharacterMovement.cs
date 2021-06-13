@@ -24,13 +24,13 @@ public class CharacterMovement : MonoBehaviour
     private float3 verticalVelocity = float3.zero;
 
     [SerializeField]
-    LayerMask GroundMask;
+    public LayerMask GroundMask;
 
     [SerializeField]
     public float JumpHeight = 1.0f;
 
     [SerializeField]
-    float Gravity = -9.81f;
+    public float Gravity = -9.81f;
 
     [SerializeField]
     float CheckGroundedOffset = 0.1f;
@@ -80,12 +80,9 @@ public class CharacterMovement : MonoBehaviour
         ApplyGravity();
     }
 
-    public void Throw(float3 dir, float force, float hdamp = 1f)
+    public void ApplyForce(float3 force)
     {
-        verticalVelocity = dir * force;
-        verticalVelocity.x *= hdamp;
-        verticalVelocity.z *= hdamp;
-
+        verticalVelocity = force;
     }
 
     private void ApplyMovement()
@@ -130,7 +127,7 @@ public class CharacterMovement : MonoBehaviour
         if (IsGrounded)
         {
             verticalVelocity.y = 0f;
-            if (Freezed || (verticalVelocity.x > 0f || verticalVelocity.z > 0f))
+            if (Freezed || (math.abs(verticalVelocity.x) > 0f || math.abs(verticalVelocity.z) > 0f))
             {
                 verticalVelocity.x = 0f;
                 verticalVelocity.z = 0f;
@@ -144,6 +141,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         verticalVelocity.y += Gravity * Time.fixedDeltaTime;
+
         Controller.Move(verticalVelocity * Time.fixedDeltaTime);
 
         jump = false;

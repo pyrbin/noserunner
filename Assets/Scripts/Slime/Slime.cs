@@ -10,6 +10,11 @@ public class Slime : Interactable
 
     public GameObject SlimePrefab;
 
+    public override string InteractionDescription()
+    {
+        return "JOIN TOGETHER ;) with slime.";
+    }
+
     public float InitialSize = 1f;
 
     [SerializeField]
@@ -58,12 +63,16 @@ public class Slime : Interactable
 
     public float JumpHeight => Species.BaseJumpHeight * Species.Mods.Jump / Size;
 
-    private bool AboutToBeConsumed = false;
+    public bool AboutToBeConsumed { get; private set; } = false;
 
     protected override void OnInteract(Interactor user)
     {
         if (AboutToBeConsumed) return;
+
         var puppeteer = user.GetComponent<SlimePuppeteer>();
+
+        if (puppeteer.CurrentSlime == this) return;
+
         puppeteer.CurrentSlime.Consume(this);
         AboutToBeConsumed = true;
         gameObject.SetActive(false);
@@ -71,6 +80,8 @@ public class Slime : Interactable
 
     public void Consume(Slime slime)
     {
+        if (slime == this) return;
+
         Size += slime.Size;
         Destroy(slime.gameObject);
     }
@@ -133,8 +144,4 @@ public class Slime : Interactable
         Movement.Freeze();
     }
 
-    public override string InteractionDescription()
-    {
-        return "JOIN TOGETHER ;) with slime.";
-    }
 }

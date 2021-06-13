@@ -12,6 +12,7 @@ public class SlimePuppeteer : MonoBehaviour
     public Slime CurrentSlime;
 
     public CinemachineVirtualCamera VirtualCamera;
+    public ThrowIndicator Indicator;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class SlimePuppeteer : MonoBehaviour
 
     public float3 LookDirection()
     {
-        return Camera.main.transform.TransformDirection(Vector3.forward).normalized;
+        return math.normalizesafe((float3)Camera.main.transform.TransformDirection(Vector3.forward).normalized + new float3(0f, 0.3f, 0));
     }
 
     bool holdSplit = false;
@@ -44,12 +45,16 @@ public class SlimePuppeteer : MonoBehaviour
         var shoot = holdSplit && !context.action.triggered;
 
         holdSplit = context.action.triggered;
-        var look = math.normalizesafe(LookDirection() + new float3(0f, 0.3f, 0));
-        if (shoot && CurrentSlime.Split(out var slime, look * CurrentSlime.Radius))
+
+        var look = LookDirection();
+        Indicator.Clear();
+
+        if (shoot && CurrentSlime.Split(out var slime, LocalFireLocation()))
         {
             CurrentSlime.GetComponentInChildren<Collider>().enabled = false;
 
-            slime.Movement.Throw(look, force, horizontalForceDamp);
+            slime.Movement.ApplyForce(ForceWithDamp(look));
+
             slime.DisableControls();
             stopShoot = true;
             Timer.Register(shootCooldownInSeconds, () =>
@@ -81,28 +86,56 @@ public class SlimePuppeteer : MonoBehaviour
         }
     }
 
+
+    public float3 ForceWithDamp(float3 look)
+    {
+        var forceWithDir = look * force;
+        forceWithDir.x *= horizontalForceDamp;
+        forceWithDir.z *= horizontalForceDamp;
+        return forceWithDir;
+    }
+
+    public float3 LocalFireLocation()
+    {
+        return ((float3)LookDirection()) * (CurrentSlime.Radius / 2f + 0.65f);
+    }
+
     private void Update()
     {
+        if (CurrentSlime)
+            Indicator.GroundMask = CurrentSlime.Movement.GroundMask;
+
         if (holdSplit)
         {
             force += Time.deltaTime * forceGainPerSeconds;
             force = math.clamp(force, minMaxForce.x, minMaxForce.y);
+
+            Indicator.Simulate(
+                (float3)CurrentSlime.transform.position + LocalFireLocation(),
+                ForceWithDamp(LookDirection()),
+                CurrentSlime.Movement.Gravity,
+                Time.deltaTime
+            );
         }
     }
 
     public void SwitchSlime(Slime slime)
     {
+        if (slime.AboutToBeConsumed) return;
+
+        var last = CurrentSlime;
+
         if (slime != CurrentSlime)
         {
             CurrentSlime?.DisableControls();
+            CurrentSlime = slime;
             slime.EnableControls();
-        }
 
-        var last = CurrentSlime;
-        CurrentSlime = slime;
+        }
 
         if (last && last != CurrentSlime)
         {
+            //
             CurrentSlime.transform.LookAt(last.transform);
         }
 

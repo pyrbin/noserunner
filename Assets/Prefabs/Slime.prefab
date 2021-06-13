@@ -147,13 +147,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 3740759320448257708}
   Speed: 11
-  MovementSmoothing: 0.05
+  MovementSmoothing: 0.072
   GroundMask:
     serializedVersion: 2
     m_Bits: 64
   JumpHeight: 1
   Gravity: -9.81
-  CheckGroundedOffset: 0.15
+  CheckGroundedOffset: 0.137
 --- !u!143 &3740759320448257708
 CharacterController:
   m_ObjectHideFlags: 0
@@ -167,8 +167,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.55
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 75
+  m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}

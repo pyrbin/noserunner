@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8675315415d84dd44a0f6511d857ae70, type: 3}
   m_Name: Default_Slime
   m_EditorClassIdentifier: 
-  BaseJumpHeight: 0.3
+  BaseJumpHeight: 0.8
   BaseSpeed: 10
   Mods:
     Scale: 0.5
