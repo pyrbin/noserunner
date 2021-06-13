@@ -82,9 +82,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{45c0f031-d933-4cca-845a-a1dd80f277f1}" />
 	<object class="EventMixerGroup" id="{24787e2c-5a63-4f61-b56a-dc184974aa3c}">
-		<property name="volume">
-			<value>-11.5</value>
-		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>

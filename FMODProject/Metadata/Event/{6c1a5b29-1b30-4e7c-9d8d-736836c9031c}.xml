@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{6c1a5b29-1b30-4e7c-9d8d-736836c9031c}">
 		<property name="name">
-			<value>pressurePlate</value>
+			<value>pressurePlate0</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -33,9 +33,6 @@
 		</relationship>
 		<relationship name="parameters">
 			<destination>{3b56b339-3140-4b80-9c71-88cb09879210}</destination>
-		</relationship>
-		<relationship name="banks">
-			<destination>{efe505b3-0f35-43d6-80a4-78d5af7f394f}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{9e2d88ad-f4de-44bb-b802-8a45f50083fe}">
