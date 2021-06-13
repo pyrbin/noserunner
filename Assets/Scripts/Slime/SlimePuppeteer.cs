@@ -36,6 +36,8 @@ public class SlimePuppeteer : MonoBehaviour
     public float shootCooldownInSeconds = 1f;
     public event Action<Slime> SlimeChanged;
 
+
+
     private bool stopShoot = false;
 
     public void Split(InputAction.CallbackContext context)
