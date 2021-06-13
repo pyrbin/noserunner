@@ -13,7 +13,10 @@ public class SizeMeter : MonoBehaviour
 
     void Update()
     {
-        text.text = slimePuppeteer.CurrentSlime.Size.ToString();
-        transform.parent.localScale = new float3(ScaleClamped, ScaleClamped, ScaleClamped);
+        if (slimePuppeteer)
+        {
+            text.text = slimePuppeteer.CurrentSlime.Size.ToString();
+            transform.parent.localScale = new float3(ScaleClamped, ScaleClamped, ScaleClamped);
+        }
     }
 }

@@ -8,10 +8,10 @@ using UnityTimer;
 
 public class Interactor : MonoBehaviour
 {
-    [SerializeField] private int rayLength = 10;
+    [SerializeField] private float rayLength = 10f;
     [SerializeField] private LayerMask layerMaskInteract;
 
-    [SerializeField] private int slimeRayLength = 100;
+    [SerializeField] private float slimeRayLength = 100;
     [SerializeField] private LayerMask layerMaskSlime;
 
     public Interactable currInteractable;
@@ -75,7 +75,7 @@ public class Interactor : MonoBehaviour
             Found?.Invoke(currInteractable);
     }
 
-    bool FindInteractable(int layerMask, int length, ref Interactable current)
+    bool FindInteractable(int layerMask, float length, ref Interactable current)
     {
         Interactable interactable = null;
 
@@ -113,7 +113,7 @@ public class Interactor : MonoBehaviour
         return interactable != null;
     }
 
-    bool CastRay(int length, int layerMask, out RaycastHit hit)
+    bool CastRay(float length, int layerMask, out RaycastHit hit)
     {
         var fwd = Camera.main.transform.TransformDirection(Vector3.forward);
         var result = Physics.Raycast(Camera.main.transform.position, fwd, out hit, length, layerMask);
