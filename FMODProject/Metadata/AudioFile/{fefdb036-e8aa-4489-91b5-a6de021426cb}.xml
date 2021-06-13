@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{fefdb036-e8aa-4489-91b5-a6de021426cb}">
+		<property name="assetPath">
+			<value>cyberman.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>59.076916099773243</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5514b572-c26a-43c4-b9a5-ca9b1bb17c0f}</destination>
+		</relationship>
+	</object>
+</objects>

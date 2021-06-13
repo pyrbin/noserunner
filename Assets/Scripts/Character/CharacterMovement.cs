@@ -14,6 +14,16 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     CharacterController Controller;
 
+    [Header("Sound")]
+    [FMODUnity.EventRef]
+    public string walkSound;
+    FMOD.Studio.EventInstance walkSoundEvent;
+    [FMODUnity.EventRef]
+    public string jumpSound;
+    [FMODUnity.EventRef]
+    public string landingSound;
+
+
     [HideInInspector]
     public float Speed = 10f;
     [Range(0, .3f)]
@@ -51,6 +61,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Jump()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(jumpSound);
         jump = true;
     }
 
@@ -87,6 +98,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+
         var input = new float3(MoveInput.x, 0f, MoveInput.y);
         var move = cameraTransform.forward * input.z + cameraTransform.right * input.x;
         move.y = 0f;
@@ -115,6 +127,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (isGrounded != IsGrounded)
         {
+            FMODUnity.RuntimeManager.PlayOneShot(landingSound);
             OnGrounded?.Invoke(isGrounded);
         }
 
