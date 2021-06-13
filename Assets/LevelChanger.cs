@@ -6,7 +6,7 @@ public class LevelChanger : MonoBehaviour
     public Animator animator;
     
     private int levelToLoad;
-    private int startGame = 1;
+    private string startGame = "Tutorial";
  
     // Update is called once per frame
     void Update()
