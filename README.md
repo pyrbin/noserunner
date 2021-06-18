@@ -1,6 +1,8 @@
-# gmtk-2021
+# noserunner
 
-TODO
+Entry for GMTK-2021
+
+https://itch.io/jam/gmtk-2021/rate/1086679
 
 ## Prerequisites
 
